@@ -22,6 +22,11 @@ Route::get('/', function () {
 
 Route::get('qrcode', function () {
     $code = md5(time(). mt_rand(1,100000));
-   return  \QrCode::generate($code,);
+//    return  \QrCode::generate($code,);
+$image = \QrCode::format('png')
+                 ->size(200)->errorCorrection('H')
+                 ->generate('A simple example of QR code!');
+$output_file = '/img/qr-code/img-' . time() . '.png';
+return Storage::disk('local')->put($output_file, $image);
 
 });

@@ -13,14 +13,8 @@ class ProductController extends Controller
 {
     public function store(Request $request)
     {
-        $code =  mt_rand(99999, 100000);
-        $qr_code = QrCode::format('png')
-            ->size(200)->errorCorrection('H')
-            ->generate($code);
-
-        $path  = '/img/qr-code/img-' . time() . '.png';
-        \Storage::disk('local')->put($path, $qr_code);
-
+        
+       
         $product = Product::create(
             [
                 'name' => $request->name,
@@ -48,7 +42,7 @@ class ProductController extends Controller
             ->size(200)->errorCorrection('H')
             ->generate($code);
         $output_file = '/imgs/qr-code/img-' . time() . '.png';
-       $path = \Storage::disk('local')->put($output_file, $image);
-       return $path;
+        \Storage::disk('local')->put($output_file, $image);
+       return $output_file;
     }
 }
